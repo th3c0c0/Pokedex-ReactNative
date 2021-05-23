@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginTop: 0,
+    flex:1,
   },
   card: {
     display: 'flex',
@@ -15,7 +16,17 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#666',
     marginHorizontal: 10,
     marginVertical: 10,
-    overflow:'hidden',
+    // overflow:'hidden',
     width:80,
   },
+  image:{
+    flex: 1,
+    resizeMode: 'cover',
+    width:80,
+    height:80,
+    zIndex:1,
+  },
+  ScrollView: {
+    height:'80%',
+  }
 });
