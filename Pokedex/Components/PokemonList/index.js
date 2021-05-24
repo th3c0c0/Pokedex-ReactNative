@@ -19,7 +19,7 @@ const PokemonList = props => {
   }, []);
 
   const fetchPokemons =  async () => {
-    await fetch('https://pokeapi.co/api/v2/pokemon?limit=500')
+    await fetch('https://pokeapi.co/api/v2/pokemon?limit=50')
       .then(response => response.json())
       .then(pokemons => {
         const pokemonsTop = pokemons;
@@ -54,7 +54,7 @@ const PokemonList = props => {
       <View style={styles.searchbar}>
         <TextInput
           style={styles.searchfield}
-          placeholder="Busca a tu Pokemon"
+          placeholder="Search Pokemon"
           onChangeText={value => setSearchfield(value)}
           value={searchfield}
         />
@@ -76,16 +76,14 @@ const PokemonList = props => {
                   // className = {pokemon.types[0].type.name}
                   onPress = {() =>
                     props.navigation.navigate('DetallePokemon', {
-                      pokemon: pokemon.name,
+                      pokemon: pokemon,
                     })
                   }>
 
                   <Image
                     style = {styles.image}
                     source = {{
-                      uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                        pokemon.id
-                      }.png`,
+                      uri: `${pokemon.sprites.other['official-artwork'].front_default}`,
                     }}
                   />
                   <Text style={styles.name}>{pokemon.name}</Text>
