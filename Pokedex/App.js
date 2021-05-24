@@ -10,8 +10,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="PokemonList">
-        <Stack.Screen name="PokemonList" component={Details} options={{title: 'Listado de Pokemons'}} component={PokemonList} />
-        <Stack.Screen name="DetallePokemon" component={Details} options={{title: 'Detalle de Pokemon'}} />
+        <Stack.Screen name="PokemonList" component={Details} options={{title: 'Pokemons List'}} component={PokemonList} />
+        <Stack.Screen name="DetallePokemon" component={Details} options={{title: 'Pokemon Details'}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
