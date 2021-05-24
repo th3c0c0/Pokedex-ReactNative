@@ -12,27 +12,38 @@ import {styles as styles} from './styles';
 const PokemonList = props => {
   const [pokemons, setPokemons] = useState([]);
   
-
   useEffect(() => {
     fetchPokemons();
   }, []);
 
-  const fetchPokemons = () => {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=30')
+  const fetchPokemons =  async () => {
+    await fetch('https://pokeapi.co/api/v2/pokemon?limit=150')
       .then(response => response.json())
       .then(pokemons => {
-        pokemons.results.forEach(pokemon=>{
-          fetch(pokemon.url)
-          .then(response => response.json())
-          .then(pokemonData=>{
-            pokemon.image = pokemonData.sprites.front_default;
-            pokemon.id = pokemonData.id;
-            // console.log(pokemon);
-            // pokemon.push( pokemonData.sprites);
-          })
-          ;
-        });
-        setPokemons(pokemons.results);
+        const pokemonsTop = pokemons;
+        const pokemonsFromDataAux = [];
+
+        const getPokemonData = async (pokemonsFromData) => {
+          const pokemonPromises = pokemonsFromData.results.map(
+            async pokemon => {
+              const pokemonDataFetch = await fetch(pokemon.url);
+              return await pokemonDataFetch.json();
+            }
+          );
+
+          for (pokemonPromise of pokemonPromises){
+            await pokemonPromise.then(data=>{
+              pokemonsFromDataAux.push(data);
+            });
+          }
+        };
+
+        //lanza el request
+        getPokemonData(pokemonsTop).then( 
+          ()=>{
+            setPokemons(pokemonsFromDataAux);
+          }
+        ); 
       });
   };
 
